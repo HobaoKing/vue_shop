@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 17:47:12
- * @LastEditTime: 2020-12-15 15:39:33
+ * @LastEditTime: 2020-12-15 18:53:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/components/Login.vue
@@ -86,7 +86,7 @@ export default {
         this.$message.success(resp.data.meta.msg);
         // 登录成功，保存token 页面跳转
         window.sessionStorage.setItem('token', resp.data.token);
-        this.router.push('/home')
+        this.$router.push('/home')
 
       });
     }
