@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 17:47:12
- * @LastEditTime: 2020-12-15 18:53:35
+ * @LastEditTime: 2020-12-16 16:24:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/components/Login.vue
@@ -72,22 +72,18 @@ export default {
     loginClick() {
       this.$refs.loginFormRef.validate(async valid => {
         console.log(`验证结果: ${valid}`);
-        if (!valid) {
-           console.log("验证失败");
-           return;
-        }
-        var resp= await this.$http.post('login', this.loginFormModel); 
+        if (!valid) return;
+        const resp= await this.$http.post('login', this.loginFormModel); 
         console.log(resp.data);
         if (resp.data.meta.status !== 200) {
-           console.log(resp.data.meta.msg);
+          //  console.log(resp.data.meta.msg);
            this.$message.error(resp.data.meta.msg);
            return;
         }
         this.$message.success(resp.data.meta.msg);
         // 登录成功，保存token 页面跳转
-        window.sessionStorage.setItem('token', resp.data.token);
+        window.sessionStorage.setItem('token', resp.data.data.token);
         this.$router.push('/home')
-
       });
     }
   }

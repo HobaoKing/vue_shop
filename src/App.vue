@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 10:13:28
- * @LastEditTime: 2020-12-07 18:34:13
+ * @LastEditTime: 2020-12-16 16:33:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/App.vue
@@ -14,6 +14,6 @@
 
 <script>
 export default {
-  name: 'app'
-}
+  name: "app"
+};
 </script>

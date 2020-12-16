@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 10:14:01
- * @LastEditTime: 2020-12-15 14:53:02
+ * @LastEditTime: 2020-12-16 15:24:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/router/index.js
@@ -20,4 +20,14 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') return next();
+  //获取token
+  const tokenStr = window.sessionStorage.getItem('token');
+  if (!tokenStr) return next('./login');
+  next();
+} 
+);
+ 
 export default router
