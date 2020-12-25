@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-15 14:51:46
- * @LastEditTime: 2020-12-23 11:36:00
+ * @LastEditTime: 2020-12-25 18:22:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/components/Home.vue
@@ -20,13 +20,17 @@
         <!-- 内容区域 -->
         <el-container>
             <!-- 左侧菜单 -->
-            <el-aside width="200px">
-               <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff">
+            <el-aside :width="isMenuCollapse ? '64px' : '200px' ">
+                <!-- 左侧菜单栏折叠点击 -->
+                <div class="toggle-div" @click="toggleDivClick">|||</div>
+                <!-- 左侧菜单 --> 
+                <el-menu  background-color="#333744"  text-color="#fff"  active-text-color="#409eff"  unique-opened  
+                :collapse-transition="false" :collapse="isMenuCollapse" >
                    <!-- 一级菜单 -->
                    <el-submenu v-for="item in menuList" :key="item.id" :index="item.id+''">
                       <template slot="title">
                           <!-- 图标 -->
-                       <i class="el-icon-location"></i>
+                       <i :class="menuIcon[item.id]"></i>
                       <!-- 文字 -->
                       <span>{{item.authName}}</span>
                       </template>    
@@ -41,10 +45,7 @@
                      </el-menu-item> 
 
                    </el-submenu>
-
-                  
-                    
-               </el-menu>
+                </el-menu>
             </el-aside>
 
             <el-main>
@@ -64,28 +65,34 @@ export default {
         return {
             menuList:[],
             menuIcon:{
-                '125':'',
-                '103':'',
-                '101':'',
-                '102':'',
-                '125':''
-            }
+                '125':'el-icon-platform-eleme',
+                '103':'el-icon-s-goods',
+                '101':'el-icon-s-help',
+                '102':'el-icon-s-platform',
+                '145':'el-icon-s-opportunity'
+            },
+            isMenuCollapse:false
         }
     },
     created () {
-        console.log(22222222222222222);
         this.getMenuList();
     },
     methods:{
+        // 退出登录
         logoutClick(){
             window.sessionStorage.clear();
             this.$router.push('/login');
         },
+        // 获取左侧Menu列表集合
         async getMenuList(){
          const {data: resq} = await this.$http.get('menus');
          if (resq.meta.status !== 200) return this.$message.error(resq.meta.msg);
          this.menuList = resq.data;
          console.log(resq);
+        },
+        // 点击按钮切换菜单的折叠和展开
+        toggleDivClick(){
+             this.isMenuCollapse = !this.isMenuCollapse;
         }
     },
 
@@ -129,5 +136,16 @@ export default {
 
   .el-main{
       background-color: #eaedf1;
+  }
+  .toggle-div{
+      width: 100%;
+      height: 24px;
+      background-color: #4a5064 ;
+      font-size: 10px;
+      line-height: 24px;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.2em;
+      cursor: pointer;
   }
 </style>
