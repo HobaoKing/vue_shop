@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 10:14:01
- * @LastEditTime: 2020-12-16 15:24:44
+ * @LastEditTime: 2020-12-25 18:35:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/router/index.js
@@ -10,12 +10,21 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
+import Welcome from '../components/Welcome.vue'
 
 Vue.use(VueRouter)
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
-  { path: '/home', component: Home }
+  { 
+     path: '/home', component: Home, redirect: '/welcome',
+      children: [
+        {
+          path : '/welcome',
+          component: Welcome
+        }
+      ]
+   }
 ]
 const router = new VueRouter({
   routes

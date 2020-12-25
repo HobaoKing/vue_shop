@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-15 14:51:46
- * @LastEditTime: 2020-12-25 18:22:15
+ * @LastEditTime: 2020-12-25 18:40:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/components/Home.vue
@@ -25,7 +25,7 @@
                 <div class="toggle-div" @click="toggleDivClick">|||</div>
                 <!-- 左侧菜单 --> 
                 <el-menu  background-color="#333744"  text-color="#fff"  active-text-color="#409eff"  unique-opened  
-                :collapse-transition="false" :collapse="isMenuCollapse" >
+                :collapse-transition="false" :collapse="isMenuCollapse" router="">
                    <!-- 一级菜单 -->
                    <el-submenu v-for="item in menuList" :key="item.id" :index="item.id+''">
                       <template slot="title">
@@ -35,7 +35,7 @@
                       <span>{{item.authName}}</span>
                       </template>    
 
-                       <el-menu-item v-for="menuItem in item.children" :key="menuItem.id" :index="menuItem.id+''">
+                       <el-menu-item v-for="menuItem in item.children" :key="menuItem.id" :index="'/'+menuItem.path">
                        <template slot="title">
                           <!-- 图标 -->
                       <i class="el-icon-menu"></i>
@@ -49,7 +49,10 @@
             </el-aside>
 
             <el-main>
-                Main
+                <!-- 路由占位符 -->
+                <router-view>
+                    
+                </router-view>
             </el-main>
         </el-container>
 
