@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 19:35:44
- * @LastEditTime: 2020-12-28 11:36:01
+ * @LastEditTime: 2020-12-28 16:32:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/plugins/element.js
@@ -28,7 +28,10 @@ import {Button,
         TableColumn, 
         Switch, 
         Tooltip, 
-        Pagination } from 'element-ui'
+        Pagination, 
+        Dialog,
+        Select,
+        Option } from 'element-ui'
 
 Vue.prototype.$message= Message;
 
@@ -53,6 +56,9 @@ Vue.use(TableColumn)
 Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
+Vue.use(Dialog)
+Vue.use(Select)
+Vue.use(Option)
 
 
 
