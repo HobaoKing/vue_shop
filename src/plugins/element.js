@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 19:35:44
- * @LastEditTime: 2020-12-23 10:33:44
+ * @LastEditTime: 2020-12-28 11:36:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/plugins/element.js
@@ -18,7 +18,17 @@ import {Button,
         Main, 
         Menu, 
         Submenu, 
-        MenuItem } from 'element-ui'
+        MenuItem,
+        Card, 
+        Breadcrumb, 
+        BreadcrumbItem, 
+        Row, 
+        Col, 
+        Table, 
+        TableColumn, 
+        Switch, 
+        Tooltip, 
+        Pagination } from 'element-ui'
 
 Vue.prototype.$message= Message;
 
@@ -33,5 +43,16 @@ Vue.use(Main)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
+Vue.use(Card)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Switch)
+Vue.use(Tooltip)
+Vue.use(Pagination)
+
 
 
