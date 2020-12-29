@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 19:35:44
- * @LastEditTime: 2020-12-29 10:51:49
+ * @LastEditTime: 2020-12-29 17:22:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/plugins/element.js
@@ -32,7 +32,8 @@ import {Button,
         Dialog,
         Select,
         Option, 
-        MessageBox } from 'element-ui'
+        MessageBox, 
+        Tag } from 'element-ui'
 
 Vue.prototype.$message= Message;
 Vue.prototype.$confirm = MessageBox.confirm;
@@ -61,6 +62,7 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Tag)
 
 
 

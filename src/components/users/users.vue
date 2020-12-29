@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-25 18:40:56
- * @LastEditTime: 2020-12-29 10:57:01
+ * @LastEditTime: 2020-12-29 16:37:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/components/users/users.vue
@@ -75,7 +75,7 @@
             <el-tooltip
               class="item"
               effect="dark"
-              content="分类角色"
+              content="分配角色"
               placement="top"
               :enterable="false"
             >

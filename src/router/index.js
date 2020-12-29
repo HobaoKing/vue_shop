@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 10:14:01
- * @LastEditTime: 2020-12-28 10:08:25
+ * @LastEditTime: 2020-12-29 17:28:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/router/index.js
@@ -12,6 +12,8 @@ import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Users from '../components/users/users.vue'
+import Rights from '../components/power/Rights.vue'
+import Roles from '../components/power/Roles.vue'
 
 Vue.use(VueRouter)
 const routes = [
@@ -20,11 +22,10 @@ const routes = [
   { 
      path: '/home', component: Home, redirect: '/welcome',
       children: [
-        {
-          path : '/welcome',
-          component: Welcome
-        },
-        { path: '/users', component: Users }
+        { path : '/welcome',component: Welcome },
+        { path: '/users', component: Users },
+        { path: '/rights', component: Rights },
+        { path: '/roles', component: Roles }
       ]
    }
 ]
