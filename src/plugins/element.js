@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 19:35:44
- * @LastEditTime: 2020-12-28 16:32:20
+ * @LastEditTime: 2020-12-29 10:51:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/plugins/element.js
@@ -31,9 +31,11 @@ import {Button,
         Pagination, 
         Dialog,
         Select,
-        Option } from 'element-ui'
+        Option, 
+        MessageBox } from 'element-ui'
 
 Vue.prototype.$message= Message;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 Vue.use(Button)
 Vue.use(Form)

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-25 18:40:56
- * @LastEditTime: 2020-12-28 18:23:03
+ * @LastEditTime: 2020-12-29 10:57:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue_shop/src/components/users/users.vue
@@ -62,10 +62,15 @@
               type="primary"
               icon="el-icon-edit"
               circle
-              @click="showEditDialog"
+              @click="showEditDialog(scope.row.id)"
             ></el-button>
             <!-- 删除 -->
-            <el-button type="danger" icon="el-icon-delete" circle></el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              circle
+              @click="removeUserById(scope.row.id)"
+            ></el-button>
 
             <el-tooltip
               class="item"
@@ -129,13 +134,31 @@
     </el-dialog>
 
     <!-- 修改用户弹框 -->
-    <el-dialog title="提示" :visible.sync="editDialogVisible" width="35%">
-      <span>这是一段信息</span>
+    <el-dialog
+      title="修改用户信息"
+      :visible.sync="editDialogVisible"
+      width="35%"
+      @close="editDialogClose"
+    >
+      <el-form
+        :model="editUserFrom"
+        :rules="editUserRules"
+        ref="editUserFromRef"
+        label-width="70px"
+      >
+        <el-form-item label="用户名:">
+          <el-input v-model="editUserFrom.username" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱:" prop="email">
+          <el-input v-model="editUserFrom.email"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号:" prop="mobile">
+          <el-input v-model="editUserFrom.mobile" maxlength="11"></el-input>
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editDialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="editUserAndNetClick">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -208,6 +231,19 @@ export default {
       },
       // 修改用户弹框
       editDialogVisible: false,
+      // 修改的用户信息模型
+      editUserFrom: {},
+      // 修改用户数据的表单验证规则
+      editUserRules: {
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          { validator: checkEmail, trigger: 'blur' },
+        ],
+        mobile: [
+          { required: true, message: '请输入手机号码', trigger: 'blur' },
+          { validator: checkMoble, trigger: 'blur' },
+        ],
+      },
     }
   },
   created() {
@@ -287,8 +323,62 @@ export default {
     },
 
     // 弹出修改用户
-    showEditDialog() {
+    async showEditDialog(userId) {
       this.editDialogVisible = true
+      const { data: resq } = await this.$http.get(`users/${userId}`)
+      if (resq.meta.status !== 200) {
+        return this.$message.error(resq.meta.msg)
+      }
+      this.editUserFrom = resq.data
+    },
+    //  关闭修改用户弹框
+    editDialogClose() {
+      this.$refs.editUserFromRef.resetFields()
+    },
+    // 修改用户提交信息
+    editUserAndNetClick() {
+      this.$refs.editUserFromRef.validate(async (validate) => {
+        if (validate) {
+          const { data: resq } = await this.$http.put(
+            `users/${this.editUserFrom.id}`,
+            {
+              email: this.editUserFrom.email,
+              mobile: this.editUserFrom.mobile,
+            }
+          )
+          if (resq.meta.status !== 200) {
+            return this.$message.error(resq.meta.msg)
+          }
+          this.editDialogVisible = false
+          this.getUsersList()
+          this.$message.success(resq.meta.msg)
+        }
+      })
+    },
+    // 删除用户
+    removeUserById(userId) {
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(async () => {
+          const { data: resq } = await this.$http.delete(`users/${userId}`)
+          if (resq.meta.status !== 200) {
+            return this.$message.error(resq.meta.msg)
+          }
+          this.getUsersList()
+          this.$message({
+            type: 'success',
+            message: '删除成功!',
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
     },
   },
 }
